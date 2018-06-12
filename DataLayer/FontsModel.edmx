@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FontInfosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Duplicates">
+          <Key>
+            <PropertyRef Name="FileName" />
+            <PropertyRef Name="Folder" />
+          </Key>
+          <Property Name="FileName" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Folder" Type="nvarchar" MaxLength="90" Nullable="false" />
+          <Property Name="Size" Type="float" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="datetime" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="4" />
+          <Property Name="Hash" Type="nvarchar" MaxLength="32" />
+          <Property Name="Group" Type="float" />
+        </EntityType>
+        <EntityType Name="Folders">
+          <Key>
+            <PropertyRef Name="FolderId" />
+          </Key>
+          <Property Name="FolderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="109" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fonts">
+          <Key>
+            <PropertyRef Name="FontId" />
+          </Key>
+          <Property Name="FontId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FolderId" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="90" Nullable="false" />
+          <Property Name="FileDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="FileSize" Type="int" Nullable="false" />
+          <Property Name="FaceName" Type="nvarchar" MaxLength="80" />
+          <Property Name="FamilyName" Type="nvarchar" MaxLength="80" />
+          <Property Name="FontType" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Baseline" Type="decimal" Precision="11" Scale="9" />
+          <Property Name="CapsHeight" Type="decimal" Precision="11" Scale="9" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ManufacturerName" Type="nvarchar" MaxLength="255" />
+          <Property Name="GlyphCount" Type="int" />
+          <Property Name="Height" Type="decimal" Precision="11" Scale="9" />
+          <Property Name="Stretch" Type="nvarchar" MaxLength="20" />
+          <Property Name="Style" Type="nvarchar" MaxLength="20" />
+          <Property Name="Symbol" Type="bit" />
+          <Property Name="Trademark" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Version" Type="nvarchar" MaxLength="20" />
+          <Property Name="Weight" Type="nvarchar" MaxLength="20" />
+          <Property Name="XHeight" Type="decimal" Precision="11" Scale="9" />
+          <Property Name="ErrorMessage" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Fonts_Folders">
+          <End Role="Folders" Type="Self.Folders" Multiplicity="1" />
+          <End Role="Fonts" Type="Self.Fonts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folders">
+              <PropertyRef Name="FolderId" />
+            </Principal>
+            <Dependent Role="Fonts">
+              <PropertyRef Name="FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FontInfosModelStoreContainer">
+          <EntitySet Name="Duplicates" EntityType="Self.Duplicates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Folders" EntityType="Self.Folders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fonts" EntityType="Self.Fonts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Fonts_Folders" Association="Self.FK_Fonts_Folders">
+            <End Role="Folders" EntitySet="Folders" />
+            <End Role="Fonts" EntitySet="Fonts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FontInfosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FontInfosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Duplicates" EntityType="FontInfosModel.Duplicate" />
+          <EntitySet Name="Folders" EntityType="FontInfosModel.Folder" />
+          <EntitySet Name="Fonts" EntityType="FontInfosModel.FontInfo" />
+          <AssociationSet Name="FK_Fonts_Folders" Association="FontInfosModel.FK_Fonts_Folders">
+            <End Role="Folder" EntitySet="Folders" />
+            <End Role="Font" EntitySet="Fonts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Duplicate">
+          <Key>
+            <PropertyRef Name="FileName" />
+            <PropertyRef Name="Folder" />
+          </Key>
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Folder" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="Double" />
+          <Property Name="Created" Type="DateTime" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <Property Name="FileType" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="Hash" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Group" Type="Double" />
+        </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="FolderId" />
+          </Key>
+          <Property Name="FolderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="109" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Fonts" Relationship="FontInfosModel.FK_Fonts_Folders" FromRole="Folder" ToRole="Font" />
+        </EntityType>
+        <EntityType Name="FontInfo">
+          <Key>
+            <PropertyRef Name="FontId" />
+          </Key>
+          <Property Name="FontId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FolderId" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="FileDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FileSize" Type="Int32" Nullable="false" />
+          <Property Name="FaceName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="FamilyName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="FontType" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="Baseline" Type="Decimal" Precision="11" Scale="9" />
+          <Property Name="CapsHeight" Type="Decimal" Precision="11" Scale="9" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GlyphCount" Type="Int32" />
+          <Property Name="Height" Type="Decimal" Precision="11" Scale="9" />
+          <Property Name="Stretch" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Style" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Symbol" Type="Boolean" />
+          <Property Name="Trademark" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Version" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="XHeight" Type="Decimal" Precision="11" Scale="9" />
+          <Property Name="ErrorMessage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Folder" Relationship="FontInfosModel.FK_Fonts_Folders" FromRole="Font" ToRole="Folder" />
+        </EntityType>
+        <Association Name="FK_Fonts_Folders">
+          <End Type="FontInfosModel.Folder" Role="Folder" Multiplicity="1" />
+          <End Type="FontInfosModel.FontInfo" Role="Font" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="FolderId" />
+            </Principal>
+            <Dependent Role="Font">
+              <PropertyRef Name="FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FontInfosModelStoreContainer" CdmEntityContainer="FontInfosEntities">
+          <EntitySetMapping Name="Duplicates">
+            <EntityTypeMapping TypeName="FontInfosModel.Duplicate">
+              <MappingFragment StoreEntitySet="Duplicates">
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="Hash" ColumnName="Hash" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Folder" ColumnName="Folder" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Folders">
+            <EntityTypeMapping TypeName="FontInfosModel.Folder">
+              <MappingFragment StoreEntitySet="Folders">
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="FolderId" ColumnName="FolderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fonts">
+            <EntityTypeMapping TypeName="FontInfosModel.FontInfo">
+              <MappingFragment StoreEntitySet="Fonts">
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="XHeight" ColumnName="XHeight" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Trademark" ColumnName="Trademark" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+                <ScalarProperty Name="Style" ColumnName="Style" />
+                <ScalarProperty Name="Stretch" ColumnName="Stretch" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="GlyphCount" ColumnName="GlyphCount" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CapsHeight" ColumnName="CapsHeight" />
+                <ScalarProperty Name="Baseline" ColumnName="Baseline" />
+                <ScalarProperty Name="FontType" ColumnName="FontType" />
+                <ScalarProperty Name="FamilyName" ColumnName="FamilyName" />
+                <ScalarProperty Name="FaceName" ColumnName="FaceName" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="FileDate" ColumnName="FileDate" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FolderId" ColumnName="FolderId" />
+                <ScalarProperty Name="FontId" ColumnName="FontId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

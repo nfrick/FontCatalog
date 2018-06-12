@@ -5,6 +5,18 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontCatalogConsole", "FontCatalogConsole\FontCatalogConsole.csproj", "{FAFCCE46-E5D5-43F3-AFD3-1BB19EA96D3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{6FF42DF3-080F-4304-8CB7-D8751C40B0C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuplicateDeleter", "DuplicateDeleter\DuplicateDeleter.csproj", "{683EC72B-9078-4E29-8B84-B534E37C7C8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitIntoSubFolders", "SplitIntoSubFolders\SplitIntoSubFolders.csproj", "{8E62DE9E-7438-4838-940F-A0946D1090BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveFromDB", "RemoveFromDB\RemoveFromDB.csproj", "{F97032D4-77F3-4BE9-81AA-FFF395E5F804}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FontCatalog", "FontCatalog\FontCatalog.csproj", "{610A8DE4-6748-4991-849D-2F4D49FA0AFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeSubFolders", "MergeSubFolders\MergeSubFolders.csproj", "{F26BD031-0202-463B-A18E-B3FA8F943A55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +27,30 @@ Global
 		{FAFCCE46-E5D5-43F3-AFD3-1BB19EA96D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAFCCE46-E5D5-43F3-AFD3-1BB19EA96D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAFCCE46-E5D5-43F3-AFD3-1BB19EA96D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF42DF3-080F-4304-8CB7-D8751C40B0C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF42DF3-080F-4304-8CB7-D8751C40B0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF42DF3-080F-4304-8CB7-D8751C40B0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF42DF3-080F-4304-8CB7-D8751C40B0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683EC72B-9078-4E29-8B84-B534E37C7C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683EC72B-9078-4E29-8B84-B534E37C7C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683EC72B-9078-4E29-8B84-B534E37C7C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683EC72B-9078-4E29-8B84-B534E37C7C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E62DE9E-7438-4838-940F-A0946D1090BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E62DE9E-7438-4838-940F-A0946D1090BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E62DE9E-7438-4838-940F-A0946D1090BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E62DE9E-7438-4838-940F-A0946D1090BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F97032D4-77F3-4BE9-81AA-FFF395E5F804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F97032D4-77F3-4BE9-81AA-FFF395E5F804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F97032D4-77F3-4BE9-81AA-FFF395E5F804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F97032D4-77F3-4BE9-81AA-FFF395E5F804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{610A8DE4-6748-4991-849D-2F4D49FA0AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{610A8DE4-6748-4991-849D-2F4D49FA0AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{610A8DE4-6748-4991-849D-2F4D49FA0AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{610A8DE4-6748-4991-849D-2F4D49FA0AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F26BD031-0202-463B-A18E-B3FA8F943A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F26BD031-0202-463B-A18E-B3FA8F943A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F26BD031-0202-463B-A18E-B3FA8F943A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F26BD031-0202-463B-A18E-B3FA8F943A55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
