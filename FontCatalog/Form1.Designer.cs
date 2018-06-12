@@ -72,6 +72,11 @@
             this.labelManufacturerName = new System.Windows.Forms.Label();
             this.labelTrademark = new System.Windows.Forms.Label();
             this.textBoxSample = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonColorSwap = new System.Windows.Forms.Button();
+            this.buttonBackground = new System.Windows.Forms.Button();
+            this.buttonForeground = new System.Windows.Forms.Button();
+            this.trackBarSize = new System.Windows.Forms.TrackBar();
             this.FBD = new System.Windows.Forms.FolderBrowserDialog();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -81,11 +86,7 @@
             this.toolStripButtonDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRenameFile = new System.Windows.Forms.ToolStripButton();
             this.CD = new System.Windows.Forms.ColorDialog();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.trackBarSize = new System.Windows.Forms.TrackBar();
-            this.buttonForeground = new System.Windows.Forms.Button();
-            this.buttonBackground = new System.Windows.Forms.Button();
-            this.buttonColorSwap = new System.Windows.Forms.Button();
+            this.toolStripButtonCataloger = new System.Windows.Forms.ToolStripButton();
             this.tlpMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -96,12 +97,12 @@
             this.tabPage3.SuspendLayout();
             this.tlpDisplayFont.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).BeginInit();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpMain
@@ -286,10 +287,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tvFonts);
-            this.tabPage2.Location = new System.Drawing.Point(4, 37);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(368, 665);
+            this.tabPage2.Size = new System.Drawing.Size(368, 677);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Folder View";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -303,7 +304,7 @@
             this.tvFonts.Location = new System.Drawing.Point(3, 3);
             this.tvFonts.Name = "tvFonts";
             this.tvFonts.SelectedImageIndex = 0;
-            this.tvFonts.Size = new System.Drawing.Size(362, 659);
+            this.tvFonts.Size = new System.Drawing.Size(362, 671);
             this.tvFonts.TabIndex = 0;
             this.tvFonts.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvFonts_AfterCheck);
             this.tvFonts.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvFonts_AfterSelect);
@@ -312,10 +313,10 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.lvSelected);
-            this.tabPage3.Location = new System.Drawing.Point(4, 37);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(368, 665);
+            this.tabPage3.Size = new System.Drawing.Size(368, 677);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Selected";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -335,7 +336,7 @@
             this.lvSelected.Location = new System.Drawing.Point(3, 3);
             this.lvSelected.MultiSelect = false;
             this.lvSelected.Name = "lvSelected";
-            this.lvSelected.Size = new System.Drawing.Size(362, 659);
+            this.lvSelected.Size = new System.Drawing.Size(362, 671);
             this.lvSelected.SmallImageList = this.imageList1;
             this.lvSelected.TabIndex = 2;
             this.lvSelected.UseCompatibleStateImageBehavior = false;
@@ -649,6 +650,61 @@
             this.textBoxSample.Size = new System.Drawing.Size(880, 264);
             this.textBoxSample.TabIndex = 4;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonColorSwap);
+            this.panel2.Controls.Add(this.buttonBackground);
+            this.panel2.Controls.Add(this.buttonForeground);
+            this.panel2.Controls.Add(this.trackBarSize);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 273);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(880, 24);
+            this.panel2.TabIndex = 5;
+            // 
+            // buttonColorSwap
+            // 
+            this.buttonColorSwap.BackColor = System.Drawing.Color.Transparent;
+            this.buttonColorSwap.Font = new System.Drawing.Font("Wingdings", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.buttonColorSwap.Location = new System.Drawing.Point(821, 1);
+            this.buttonColorSwap.Name = "buttonColorSwap";
+            this.buttonColorSwap.Size = new System.Drawing.Size(27, 23);
+            this.buttonColorSwap.TabIndex = 9;
+            this.buttonColorSwap.Text = "ó";
+            this.buttonColorSwap.UseVisualStyleBackColor = false;
+            this.buttonColorSwap.Click += new System.EventHandler(this.buttonColorSwap_Click);
+            // 
+            // buttonBackground
+            // 
+            this.buttonBackground.BackColor = System.Drawing.Color.White;
+            this.buttonBackground.Location = new System.Drawing.Point(847, 0);
+            this.buttonBackground.Name = "buttonBackground";
+            this.buttonBackground.Size = new System.Drawing.Size(27, 23);
+            this.buttonBackground.TabIndex = 8;
+            this.buttonBackground.UseVisualStyleBackColor = false;
+            this.buttonBackground.Click += new System.EventHandler(this.buttonBackground_Click);
+            // 
+            // buttonForeground
+            // 
+            this.buttonForeground.BackColor = System.Drawing.Color.Black;
+            this.buttonForeground.Location = new System.Drawing.Point(795, 1);
+            this.buttonForeground.Name = "buttonForeground";
+            this.buttonForeground.Size = new System.Drawing.Size(27, 23);
+            this.buttonForeground.TabIndex = 7;
+            this.buttonForeground.UseVisualStyleBackColor = false;
+            this.buttonForeground.Click += new System.EventHandler(this.buttonForeground_Click);
+            // 
+            // trackBarSize
+            // 
+            this.trackBarSize.Location = new System.Drawing.Point(3, -16);
+            this.trackBarSize.Maximum = 72;
+            this.trackBarSize.Minimum = 6;
+            this.trackBarSize.Name = "trackBarSize";
+            this.trackBarSize.Size = new System.Drawing.Size(785, 56);
+            this.trackBarSize.TabIndex = 6;
+            this.trackBarSize.Value = 36;
+            this.trackBarSize.ValueChanged += new System.EventHandler(this.trackBarSize_ValueChanged);
+            // 
             // toolStripContainer1
             // 
             // 
@@ -676,10 +732,11 @@
             this.toolStripButtonUncheck,
             this.toolStripButtonDeselect,
             this.toolStripButtonDelete,
-            this.toolStripButtonRenameFile});
+            this.toolStripButtonRenameFile,
+            this.toolStripButtonCataloger});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(398, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(505, 27);
             this.toolStrip1.TabIndex = 0;
             // 
             // toolStripButtonSelect
@@ -746,60 +803,15 @@
             this.toolStripButtonRenameFile.Visible = false;
             this.toolStripButtonRenameFile.Click += new System.EventHandler(this.toolStripButtonRenameFile_Click);
             // 
-            // panel2
+            // toolStripButtonCataloger
             // 
-            this.panel2.Controls.Add(this.buttonColorSwap);
-            this.panel2.Controls.Add(this.buttonBackground);
-            this.panel2.Controls.Add(this.buttonForeground);
-            this.panel2.Controls.Add(this.trackBarSize);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 273);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(880, 24);
-            this.panel2.TabIndex = 5;
-            // 
-            // trackBarSize
-            // 
-            this.trackBarSize.Location = new System.Drawing.Point(3, -16);
-            this.trackBarSize.Maximum = 72;
-            this.trackBarSize.Minimum = 6;
-            this.trackBarSize.Name = "trackBarSize";
-            this.trackBarSize.Size = new System.Drawing.Size(785, 56);
-            this.trackBarSize.TabIndex = 6;
-            this.trackBarSize.Value = 36;
-            this.trackBarSize.ValueChanged += new System.EventHandler(this.trackBarSize_ValueChanged);
-            // 
-            // buttonForeground
-            // 
-            this.buttonForeground.BackColor = System.Drawing.Color.Black;
-            this.buttonForeground.Location = new System.Drawing.Point(795, 1);
-            this.buttonForeground.Name = "buttonForeground";
-            this.buttonForeground.Size = new System.Drawing.Size(27, 23);
-            this.buttonForeground.TabIndex = 7;
-            this.buttonForeground.UseVisualStyleBackColor = false;
-            this.buttonForeground.Click += new System.EventHandler(this.buttonForeground_Click);
-            // 
-            // buttonBackground
-            // 
-            this.buttonBackground.BackColor = System.Drawing.Color.White;
-            this.buttonBackground.Location = new System.Drawing.Point(847, 0);
-            this.buttonBackground.Name = "buttonBackground";
-            this.buttonBackground.Size = new System.Drawing.Size(27, 23);
-            this.buttonBackground.TabIndex = 8;
-            this.buttonBackground.UseVisualStyleBackColor = false;
-            this.buttonBackground.Click += new System.EventHandler(this.buttonBackground_Click);
-            // 
-            // buttonColorSwap
-            // 
-            this.buttonColorSwap.BackColor = System.Drawing.Color.Transparent;
-            this.buttonColorSwap.Font = new System.Drawing.Font("Wingdings", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.buttonColorSwap.Location = new System.Drawing.Point(821, 1);
-            this.buttonColorSwap.Name = "buttonColorSwap";
-            this.buttonColorSwap.Size = new System.Drawing.Size(27, 23);
-            this.buttonColorSwap.TabIndex = 9;
-            this.buttonColorSwap.Text = "ó";
-            this.buttonColorSwap.UseVisualStyleBackColor = false;
-            this.buttonColorSwap.Click += new System.EventHandler(this.buttonColorSwap_Click);
+            this.toolStripButtonCataloger.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonCataloger.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonCataloger.Image")));
+            this.toolStripButtonCataloger.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonCataloger.Name = "toolStripButtonCataloger";
+            this.toolStripButtonCataloger.Size = new System.Drawing.Size(107, 24);
+            this.toolStripButtonCataloger.Text = "Run Cataloger";
+            this.toolStripButtonCataloger.Click += new System.EventHandler(this.toolStripButtonCataloger_Click);
             // 
             // Form1
             // 
@@ -810,7 +822,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Font Catalog";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tlpMain.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -825,6 +837,9 @@
             this.tlpDisplayFont.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).EndInit();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
@@ -832,9 +847,6 @@
             this.toolStripContainer1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -900,6 +912,7 @@
         private System.Windows.Forms.Button buttonForeground;
         private System.Windows.Forms.TrackBar trackBarSize;
         private System.Windows.Forms.Button buttonColorSwap;
+        private System.Windows.Forms.ToolStripButton toolStripButtonCataloger;
     }
 }
 

@@ -1,19 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
+
+// Goal: move fonts in subfolders to start folder
 
 namespace MergeSubFolders {
     class Program {
-        private static readonly string baseDir = @"D:\AAA";
+        private static readonly string startFolder = @"D:\AAA";
         static void Main(string[] args) {
-            var subFolders = Directory.GetDirectories(baseDir);
+            var subFolders = Directory.GetDirectories(startFolder);
             foreach (var subFolder in subFolders)
-            //    CheckForSubFolders(subFolder);
-            ProcessFolder(subFolder);
+                //CheckForSubFolders(subFolder);
+                ProcessFolder(subFolder);
             Console.Write("Done.");
             Console.ReadLine();
         }

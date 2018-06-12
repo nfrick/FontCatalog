@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
@@ -158,7 +159,7 @@ namespace FontCatalog {
             const string space = " ";
             var text = textBoxSample.Text.Split(lf[0]);
             var firstline = text[0].Split(space[0]);
-            firstline[firstline.Length-1] = $"{trackBarSize.Value}\r";
+            firstline[firstline.Length - 1] = $"{trackBarSize.Value}\r";
             text[0] = string.Join(space, firstline);
             textBoxSample.Text = string.Join(lf, text);
             textBoxSample.Font = new Font(textBoxSample.Font.FontFamily,
@@ -216,7 +217,7 @@ namespace FontCatalog {
             foreach (var family in families) {
                 var lvg = new ListViewGroup(family.Key);
                 lvFonts.Groups.Add(lvg);
-                foreach (var font in family.OrderBy(f => f.FontType).ThenBy(f => f.FaceName).ThenBy(f=>f.FileDate)) {
+                foreach (var font in family.OrderBy(f => f.FontType).ThenBy(f => f.FaceName).ThenBy(f => f.FileDate)) {
                     var lvi = new ListViewItem(font.FaceName) {
                         Group = lvg,
                         Tag = font,
@@ -414,6 +415,31 @@ namespace FontCatalog {
             font.FileName = newName;
             _ctx.SaveChanges();
             DisplayFont(font);
+        }
+
+        private void toolStripButtonCataloger_Click(object sender, EventArgs e) {
+            if (FBD.ShowDialog() != DialogResult.OK) return;
+            // Use ProcessStartInfo class
+            var startInfo = new ProcessStartInfo
+            {
+                CreateNoWindow = false,
+                UseShellExecute = false,
+                FileName =
+                    @"D:\Users\nfric\Documents\Visual Studio 2017\Projects\FontCatalogConsole\FontCatalogConsole\bin\Debug\FontCatalogConsole.exe",
+                WindowStyle = ProcessWindowStyle.Normal,
+                Arguments = "\"" + FBD.SelectedPath + "\""
+            };
+
+            try {
+                // Start the process with the info we specified.
+                // Call WaitForExit and then the using statement will close.
+                using (var exeProcess = Process.Start(startInfo)) {
+                    exeProcess.WaitForExit();
+                }
+            }
+            catch {
+                // Log error.
+            }
         }
 
         #endregion

@@ -6,19 +6,19 @@ using System.Linq;
 
 namespace FontCatalogConsole {
     class Program {
-        private static List<string> errors;
+        private static List<string> _errors;
 
         static void Main(string[] args) {
-            errors = new List<string>();
+            _errors = new List<string>();
 
-            RemoveObsoleteFoldersFromDb(@"D:\Fonts1");
-            ProcessFolder(@"D:\Fonts1");
-            
+            RemoveObsoleteFoldersFromDb(args[0]);
+            ProcessFolder(args[0]);
+
             Console.WriteLine(@"---------------------------------");
 
-            if (errors.Any()) {
+            if (_errors.Any()) {
                 Console.WriteLine("\n\nERRORS");
-                foreach (var error in errors.OrderBy(e => e))
+                foreach (var error in _errors.OrderBy(e => e))
                     Console.WriteLine(error);
             }
             Console.WriteLine("\n\nPress ENTER");
@@ -29,7 +29,9 @@ namespace FontCatalogConsole {
             using (var ctx = new FontInfosEntities()) {
                 var foldersInDb = ctx.Folders.Where(f => f.Path.StartsWith(folder)).ToList();
                 if (!foldersInDb.Any()) return;
-                var obsoleteFolders = foldersInDb.Where(f => !Directory.Exists(f.Path)).ToList();
+                // Remove empty folders and folders than no longer exist
+                var obsoleteFolders = foldersInDb
+                    .Where(f => !f.Fonts.Any() || !Directory.Exists(f.Path)).ToList();
                 ctx.Folders.RemoveRange(obsoleteFolders);
                 ctx.SaveChanges();
             }
@@ -68,6 +70,7 @@ namespace FontCatalogConsole {
                 }
 
                 if (!files.Any()) {
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine($"\n{folder} --- {fileCount}");
                     return;
                 }
@@ -81,12 +84,11 @@ namespace FontCatalogConsole {
                     ctx.SaveChanges();
                 }
                 catch (Exception ex) {
-                    errors.Add(folder);
+                    _errors.Add(folder);
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine(ex.Message);
                     Console.ReadLine();
                 }
-                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }
