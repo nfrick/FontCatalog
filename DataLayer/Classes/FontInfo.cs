@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Windows.Media;
+using System.Drawing;
 
 namespace DataLayer {
     public partial class FontInfo {
@@ -11,7 +12,21 @@ namespace DataLayer {
         public string FullName => Folder == null || FileName == null ? "" :
             Path.Combine(Folder.Path, FileName);
 
+        public string FontName => $"{FamilyName} {FaceName}";
+
         public bool HasInfo => string.IsNullOrEmpty(ErrorMessage);
+
+        public FontStyle FStyle() {
+            var fs = FontStyle.Regular;
+            if (!HasInfo) return fs;
+            if (Weight.IndexOf("bold", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                Weight.IndexOf("black", StringComparison.OrdinalIgnoreCase) >= 0)
+                fs |= FontStyle.Bold;
+            if (Style.IndexOf("italic", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                Style.IndexOf("oblique", StringComparison.OrdinalIgnoreCase) >= 0)
+                fs |= FontStyle.Italic;
+            return fs;
+        }
 
         public FontInfo() {
         }

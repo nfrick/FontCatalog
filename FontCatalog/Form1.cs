@@ -11,6 +11,8 @@ using System.Windows.Forms;
 namespace FontCatalog {
     public partial class Form1 : Form {
         private FontInfosEntities _ctx;
+        private PrivateFontCollection _pfcSearch = new PrivateFontCollection();
+        private PrivateFontCollection _pfcSelected = new PrivateFontCollection();
         public Form1() {
             InitializeComponent();
         }
@@ -110,30 +112,21 @@ namespace FontCatalog {
         #region FONT INFO
         private void DisplayFont(FontInfo font) {
             tlpDisplayFont.Visible = !string.IsNullOrEmpty(font.FaceName);
-            if (tlpDisplayFont.Visible) {
-                var pfc = new PrivateFontCollection();
-                pfc.AddFontFile(font.FullName);
+            if (!tlpDisplayFont.Visible) return;
+            var pfc = new PrivateFontCollection();
+            pfc.AddFontFile(font.FullName);
 
-                var fs = FontStyle.Regular;
-                if (font.HasInfo) {
-                    if (font.Weight.IndexOf("bold", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                        font.Weight.IndexOf("black", StringComparison.OrdinalIgnoreCase) >= 0)
-                        fs |= FontStyle.Bold;
-                    if (font.Style.IndexOf("italic", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                        font.Style.IndexOf("oblique", StringComparison.OrdinalIgnoreCase) >= 0)
-                        fs |= FontStyle.Italic;
-                }
-                textBoxSample.Text = $"{font.FamilyName.ToUpper()} {font.FaceName.ToUpper()} {trackBarSize.Value}" +
-                                     "\r\nThe quick brown fox jumps over the lazy dog." +
-                                     "\r\n1234567890";
-                try {
-                    textBoxSample.Font = new Font(pfc.Families[0], trackBarSize.Value, fs);
-                }
-                catch {
-                    MessageBox.Show("Unable to display font sample.", "Font Catalog", MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation);
-                }
+            textBoxSample.Text = $"{font.FamilyName.ToUpper()} {font.FaceName.ToUpper()} {trackBarSize.Value}" +
+                                 "\r\nThe quick brown fox jumps over the lazy dog." +
+                                 "\r\n1234567890 R$ 123.456,78  áéíóú ÁÉÍÓÚ ãõ ÃÕ âêîôû ÂÊÎÔÛ";
+            try {
+                textBoxSample.Font = new Font(pfc.Families[0], trackBarSize.Value, font.FStyle());
             }
+            catch {
+                MessageBox.Show("Unable to display font sample.", "Font Catalog",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
             labelPath.Text = font.FullName;
             labelDate.Text = font.FileDate.ToString();
             labelSize.Text = $"{font.FileSize:N0} bytes";
@@ -169,7 +162,7 @@ namespace FontCatalog {
         private void buttonForeground_Click(object sender, EventArgs e) {
             CD.Color = textBoxSample.ForeColor;
             if (CD.ShowDialog() == DialogResult.OK)
-                textBoxSample.ForeColor = buttonForeground.BackColor = CD.Color;
+                textBoxSample.ForeColor = buttonForeground.BackColor = panel3.BackColor = CD.Color;
         }
 
         private void buttonBackground_Click(object sender, EventArgs e) {
@@ -180,7 +173,8 @@ namespace FontCatalog {
 
         private void buttonColorSwap_Click(object sender, EventArgs e) {
             var temp = textBoxSample.BackColor;
-            textBoxSample.BackColor = buttonBackground.BackColor = textBoxSample.ForeColor;
+            textBoxSample.BackColor = buttonBackground.BackColor =
+                panel3.BackColor = textBoxSample.ForeColor;
             textBoxSample.ForeColor = buttonForeground.BackColor = temp;
         }
         #endregion
@@ -189,45 +183,74 @@ namespace FontCatalog {
         private void buttonSearch_Click(object sender, EventArgs e) {
             IQueryable<FontInfo> fonts;
             var button = sender as Button;
-            if (button.Text == "Family") {
-                fonts = _ctx.Fonts.Where(f => f.FamilyName.Contains(textBoxTarget.Text));
+            switch (button.Text) {
+                case "Family":
+                    fonts = _ctx.Fonts.Where(f => f.FamilyName.Contains(textBoxTarget.Text));
+                    break;
+                case "Name":
+                    fonts = _ctx.Fonts.Where(f => f.FaceName.Contains(textBoxTarget.Text));
+                    break;
+                case "File":
+                    fonts = _ctx.Fonts.Where(f => f.FileName.Contains(textBoxTarget.Text));
+                    break;
+                default:
+                    fonts = _ctx.Fonts.Where(f => f.Symbol == true);
+                    break;
             }
-            else if (button.Text == "Name") {
-                fonts = _ctx.Fonts.Where(f => f.FaceName.Contains(textBoxTarget.Text));
-            }
-            else if (button.Text == "File") {
-                fonts = _ctx.Fonts.Where(f => f.FileName.Contains(textBoxTarget.Text));
-            }
-            else {
-                fonts = _ctx.Fonts.Where(f => f.Symbol == true);
-            }
-            ListViewPopulate(fonts);
+            ListViewPopulate(lvSearch, fonts);
         }
         #endregion
 
         #region LISTVIEW
-        private void ListViewPopulate(IQueryable<FontInfo> fonts) {
-            lvFonts.Items.Clear();
+
+        private void ListViewPopulate(ListView lv,
+            IEnumerable<FontInfo> fonts) {
+            lv.Items.Clear();
             if (!fonts.Any()) {
                 MessageBox.Show(@"No fonts found.");
                 return;
             }
-            var families = fonts.GroupBy(f => f.FamilyName);
+
+            PrivateFontCollection pfc;
+            if (lv.Name == "lvSearch") {
+                _pfcSearch = new PrivateFontCollection();
+                pfc = _pfcSearch;
+            }
+            else {
+                _pfcSelected = new PrivateFontCollection();
+                pfc = _pfcSelected;
+            }
+
+            var families = fonts.OrderBy(f => f.FamilyName).GroupBy(f => f.FamilyName);
 
             foreach (var family in families) {
                 var lvg = new ListViewGroup(family.Key);
-                lvFonts.Groups.Add(lvg);
-                foreach (var font in family.OrderBy(f => f.FontType).ThenBy(f => f.FaceName).ThenBy(f => f.FileDate)) {
-                    var lvi = new ListViewItem(font.FaceName) {
+                lv.Groups.Add(lvg);
+                foreach (var font in family.OrderBy(f => f.FontType)
+                    .ThenBy(f => f.FaceName).ThenBy(f => f.FileDate)) {
+                    pfc.AddFontFile(font.FullName);
+                    var fontFamily = pfc.Families.FirstOrDefault(f => f.Name == font.FamilyName) ?? pfc.Families.FirstOrDefault(f => f.Name == font.FontName);
+                    var lvi = new ListViewItem {
+                        Text = font.FaceName + (fontFamily == null ? "*" : ""),
+                        Font = fontFamily == null ? new Font("Segoe UI", 12) : new Font(fontFamily, 16, font.FStyle()),
                         Group = lvg,
                         Tag = font,
-                        ImageIndex = font.FontType.ToLower() == "ttf" ? 3 : 2
+                        ImageIndex = font.FontType.ToLower() == "ttf" ? 3 : 2,
+                        UseItemStyleForSubItems = false
                     };
-                    lvi.SubItems.Add(font.GlyphCount.ToString());
-                    lvi.SubItems.Add(font.Version);
-                    lvFonts.Items.Add(lvi);
+                    lvi.SubItems.Add(CreateSubItem(font.GlyphCount.ToString()));
+                    lvi.SubItems.Add(CreateSubItem(font.Version));
+                    lv.Items.Add(lvi);
                 }
             }
+            lv.SelectedIndices.Add(0);
+        }
+
+        private ListViewItem.ListViewSubItem CreateSubItem(string text) {
+            return new ListViewItem.ListViewSubItem() {
+                Text = text,
+                Font = new Font("Segoe UI", 14),
+            };
         }
 
         private void listView_SelectedIndexChanged(object sender, EventArgs e) {
@@ -241,21 +264,31 @@ namespace FontCatalog {
         private void listView_ItemChecked(object sender, ItemCheckedEventArgs e) {
             EnableCheckBasedToolstripButtons((ListView)sender);
         }
+
+        private void lvFonts_DrawItem(object sender, DrawListViewItemEventArgs e) {
+            // Ignored if listview OwnerDraw = false
+            e.DrawDefault = true;
+            e.Item.BackColor = e.ItemIndex % 2 == 0 ?
+                Color.FromArgb(230, 230, 255) : Color.FromArgb(255, 255, 255);
+            e.Item.UseItemStyleForSubItems = true;
+        }
         #endregion
 
         #region TABS
         private void tabControl1_Selected(object sender, TabControlEventArgs e) {
             var tab = sender as TabControl;
-            toolStripButtonSelect.Visible = tab.SelectedIndex != 2;
-            toolStripButtonDeselect.Visible = tab.SelectedIndex == 2;
 
             switch (tab.SelectedIndex) {
                 case 0:
+                    toolStripButtonDeselect.Visible = false;
+                    toolStripButtonSelect.Visible =
                     toolStripButtonUncheck.Visible =
                         toolStripButtonDelete.Visible =
-                        lvFonts.CheckedItems.Cast<ListViewItem>().Any();
+                        lvSearch.CheckedItems.Cast<ListViewItem>().Any();
                     break;
                 case 1:
+                    toolStripButtonDeselect.Visible = false;
+                    toolStripButtonSelect.Visible =
                     toolStripButtonUncheck.Visible =
                         toolStripButtonDelete.Visible =
                         tvFonts.Nodes.Descendants().Any(n => n.Checked);
@@ -263,6 +296,8 @@ namespace FontCatalog {
                         GetFontFolder();
                     break;
                 case 2:
+                    toolStripButtonSelect.Visible = false;
+                    toolStripButtonDeselect.Visible =
                     toolStripButtonUncheck.Visible =
                         toolStripButtonDelete.Visible =
                         lvSelected.CheckedItems.Cast<ListViewItem>().Any();
@@ -275,15 +310,19 @@ namespace FontCatalog {
 
         private void EnableCheckBasedToolstripButtons(ListView lv) {
             toolStripButtonSelect.Visible =
+            toolStripButtonDeselect.Visible =
             toolStripButtonUncheck.Visible =
                 toolStripButtonDelete.Visible =
                     lv.CheckedItems.Cast<ListViewItem>().Any();
+            toolStripButtonSelect.Visible &= tabControl1.SelectedIndex != 2;
+            toolStripButtonDeselect.Visible &= tabControl1.SelectedIndex == 2;
         }
+
         private void toolStripButtonSelect_Click(object sender, EventArgs e) {
             switch (tabControl1.SelectedIndex) {
                 case 0:
-                    AddToSelected(lvFonts.
-                        CheckedItems.Cast<ListViewItem>().Select(n => (FontInfo)n.Tag));
+                    AddToSelected(lvSearch.
+                        CheckedItems.Cast<ListViewItem>().Select(n => n.Tag));
                     break;
                 case 1:
                     AddToSelected(
@@ -298,33 +337,16 @@ namespace FontCatalog {
         }
 
         private void AddToSelected(IEnumerable<object> fonts) {
-            foreach (FontInfo font in fonts) {
-                if (lvSelected.Items.Cast<ListViewItem>().Any(i => i.Name == font.FullName)) continue;
-                var lvg = GetGroup(font.FamilyName);
-                var lvi = new ListViewItem(font.FaceName) {
-                    Name = font.FullName,
-                    Group = lvg,
-                    Tag = font,
-                    ImageIndex = font.FontType.ToLower() == "ttf" ? 3 : 2
-                };
-                lvi.SubItems.Add(font.GlyphCount.ToString());
-                lvi.SubItems.Add(font.Version);
-                lvSelected.Items.Add(lvi);
-            }
+            var existing = new List<object>();
+            existing.AddRange(lvSelected.Items.Cast<ListViewItem>().Select(f => f.Tag));
+            var all = fonts.Concat(existing);
+            ListViewPopulate(lvSelected, all.Cast<FontInfo>());
         }
-
-        private ListViewGroup GetGroup(string text) {
-            var lvg = lvSelected.Groups.Cast<ListViewGroup>().FirstOrDefault(g => g.Name == text);
-            if (lvg != null) return lvg;
-            lvg = new ListViewGroup(text, text);
-            lvSelected.Groups.Add(lvg);
-            return lvg;
-        }
-
+        
         private void toolStripButtonUncheck_Click(object sender, EventArgs e) {
             switch (tabControl1.SelectedIndex) {
                 case 0:
-                    foreach (ListViewItem item in lvFonts.Items)
+                    foreach (ListViewItem item in lvSearch.Items)
                         item.Checked = false;
                     break;
                 case 1:
@@ -341,9 +363,10 @@ namespace FontCatalog {
         }
 
         private void toolStripButtonDeselect_Click(object sender, EventArgs e) {
-            foreach (ListViewItem item in lvSelected.CheckedItems)
-                item.Remove();
             EnableCheckBasedToolstripButtons(lvSelected);
+            var existing = new List<FontInfo>();
+            existing.AddRange(lvSelected.Items.Cast<ListViewItem>().Where(f => !f.Checked).Select(f => (FontInfo)f.Tag));
+            ListViewPopulate(lvSelected, existing);
         }
 
         private void toolStripButtonDelete_Click(object sender, EventArgs e) {
@@ -354,7 +377,7 @@ namespace FontCatalog {
 
             switch (tabControl1.SelectedIndex) {
                 case 0:
-                    DeleteFromListView(lvFonts);
+                    DeleteFromListView(lvSearch);
                     break;
                 case 1:
                     foreach (var item in tvFonts.Nodes.Descendants().Where(n => n.Checked)) {
@@ -388,7 +411,7 @@ namespace FontCatalog {
             FontInfo font = null;
             switch (tabControl1.SelectedIndex) {
                 case 0:
-                    font = (FontInfo)lvFonts.SelectedItems[0].Tag;
+                    font = (FontInfo)lvSearch.SelectedItems[0].Tag;
                     break;
                 case 1:
                     font = (FontInfo)tvFonts.SelectedNode.Tag;
@@ -420,8 +443,7 @@ namespace FontCatalog {
         private void toolStripButtonCataloger_Click(object sender, EventArgs e) {
             if (FBD.ShowDialog() != DialogResult.OK) return;
             // Use ProcessStartInfo class
-            var startInfo = new ProcessStartInfo
-            {
+            var startInfo = new ProcessStartInfo {
                 CreateNoWindow = false,
                 UseShellExecute = false,
                 FileName =
@@ -443,5 +465,6 @@ namespace FontCatalog {
         }
 
         #endregion
+
     }
 }

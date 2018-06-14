@@ -38,7 +38,7 @@
             this.buttonSearchFontName = new System.Windows.Forms.Button();
             this.textBoxTarget = new System.Windows.Forms.TextBox();
             this.buttonSearchFamily = new System.Windows.Forms.Button();
-            this.lvFonts = new System.Windows.Forms.ListView();
+            this.lvSearch = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -71,12 +71,13 @@
             this.labelSize = new System.Windows.Forms.Label();
             this.labelManufacturerName = new System.Windows.Forms.Label();
             this.labelTrademark = new System.Windows.Forms.Label();
-            this.textBoxSample = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonColorSwap = new System.Windows.Forms.Button();
             this.buttonBackground = new System.Windows.Forms.Button();
             this.buttonForeground = new System.Windows.Forms.Button();
             this.trackBarSize = new System.Windows.Forms.TrackBar();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.textBoxSample = new System.Windows.Forms.TextBox();
             this.FBD = new System.Windows.Forms.FolderBrowserDialog();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -85,8 +86,8 @@
             this.toolStripButtonDeselect = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRenameFile = new System.Windows.Forms.ToolStripButton();
-            this.CD = new System.Windows.Forms.ColorDialog();
             this.toolStripButtonCataloger = new System.Windows.Forms.ToolStripButton();
+            this.CD = new System.Windows.Forms.ColorDialog();
             this.tlpMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -99,6 +100,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).BeginInit();
+            this.panel3.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -149,7 +151,7 @@
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel5, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.lvFonts, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.lvSearch, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -237,37 +239,40 @@
             this.buttonSearchFamily.UseVisualStyleBackColor = true;
             this.buttonSearchFamily.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
-            // lvFonts
+            // lvSearch
             // 
-            this.lvFonts.CheckBoxes = true;
-            this.lvFonts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvSearch.CheckBoxes = true;
+            this.lvSearch.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
-            this.lvFonts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             listViewGroup1.Header = "ListViewGroup";
             listViewGroup1.Name = "listViewGroup1";
-            this.lvFonts.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            this.lvSearch.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1});
-            this.lvFonts.Location = new System.Drawing.Point(3, 97);
-            this.lvFonts.MultiSelect = false;
-            this.lvFonts.Name = "lvFonts";
-            this.lvFonts.Size = new System.Drawing.Size(356, 559);
-            this.lvFonts.SmallImageList = this.imageList1;
-            this.lvFonts.TabIndex = 1;
-            this.lvFonts.UseCompatibleStateImageBehavior = false;
-            this.lvFonts.View = System.Windows.Forms.View.Details;
-            this.lvFonts.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listView_ItemChecked);
-            this.lvFonts.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
+            this.lvSearch.Location = new System.Drawing.Point(3, 97);
+            this.lvSearch.MultiSelect = false;
+            this.lvSearch.Name = "lvSearch";
+            this.lvSearch.OwnerDraw = true;
+            this.lvSearch.Size = new System.Drawing.Size(356, 559);
+            this.lvSearch.SmallImageList = this.imageList1;
+            this.lvSearch.TabIndex = 1;
+            this.lvSearch.UseCompatibleStateImageBehavior = false;
+            this.lvSearch.View = System.Windows.Forms.View.Details;
+            this.lvSearch.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.lvFonts_DrawItem);
+            this.lvSearch.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listView_ItemChecked);
+            this.lvSearch.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Font";
-            this.columnHeader1.Width = 150;
+            this.columnHeader1.Width = 180;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Glyphs";
+            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader2.Width = 90;
             // 
             // columnHeader3
@@ -347,11 +352,12 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Font";
-            this.columnHeader4.Width = 150;
+            this.columnHeader4.Width = 180;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Glyphs";
+            this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.columnHeader5.Width = 90;
             // 
             // columnHeader6
@@ -364,8 +370,8 @@
             this.tlpDisplayFont.ColumnCount = 1;
             this.tlpDisplayFont.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpDisplayFont.Controls.Add(this.tableLayoutPanel2, 0, 2);
-            this.tlpDisplayFont.Controls.Add(this.textBoxSample, 0, 0);
             this.tlpDisplayFont.Controls.Add(this.panel2, 0, 1);
+            this.tlpDisplayFont.Controls.Add(this.panel3, 0, 0);
             this.tlpDisplayFont.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpDisplayFont.Location = new System.Drawing.Point(385, 3);
             this.tlpDisplayFont.Name = "tlpDisplayFont";
@@ -638,18 +644,6 @@
             this.labelTrademark.Text = "Trademark:";
             this.labelTrademark.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBoxSample
-            // 
-            this.textBoxSample.BackColor = System.Drawing.Color.White;
-            this.textBoxSample.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxSample.Location = new System.Drawing.Point(3, 3);
-            this.textBoxSample.Multiline = true;
-            this.textBoxSample.Name = "textBoxSample";
-            this.textBoxSample.ReadOnly = true;
-            this.textBoxSample.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxSample.Size = new System.Drawing.Size(880, 264);
-            this.textBoxSample.TabIndex = 4;
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.buttonColorSwap);
@@ -705,6 +699,30 @@
             this.trackBarSize.Value = 36;
             this.trackBarSize.ValueChanged += new System.EventHandler(this.trackBarSize_ValueChanged);
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.textBoxSample);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Padding = new System.Windows.Forms.Padding(6);
+            this.panel3.Size = new System.Drawing.Size(880, 264);
+            this.panel3.TabIndex = 6;
+            // 
+            // textBoxSample
+            // 
+            this.textBoxSample.BackColor = System.Drawing.Color.White;
+            this.textBoxSample.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxSample.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxSample.Location = new System.Drawing.Point(6, 6);
+            this.textBoxSample.Multiline = true;
+            this.textBoxSample.Name = "textBoxSample";
+            this.textBoxSample.ReadOnly = true;
+            this.textBoxSample.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxSample.Size = new System.Drawing.Size(868, 252);
+            this.textBoxSample.TabIndex = 5;
+            // 
             // toolStripContainer1
             // 
             // 
@@ -736,7 +754,7 @@
             this.toolStripButtonCataloger});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(505, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(119, 27);
             this.toolStrip1.TabIndex = 0;
             // 
             // toolStripButtonSelect
@@ -834,12 +852,13 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tlpDisplayFont.ResumeLayout(false);
-            this.tlpDisplayFont.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSize)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
@@ -861,7 +880,7 @@
         private System.Windows.Forms.TableLayoutPanel tlpDisplayFont;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.ListView lvFonts;
+        private System.Windows.Forms.ListView lvSearch;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label labelBaseline;
@@ -879,7 +898,6 @@
         private System.Windows.Forms.Label labelXHeight;
         private System.Windows.Forms.Label labelFamily;
         private System.Windows.Forms.Label labelName;
-        private System.Windows.Forms.TextBox textBoxSample;
         private System.Windows.Forms.TextBox textBoxTarget;
         private System.Windows.Forms.Button buttonSearchFamily;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -913,6 +931,8 @@
         private System.Windows.Forms.TrackBar trackBarSize;
         private System.Windows.Forms.Button buttonColorSwap;
         private System.Windows.Forms.ToolStripButton toolStripButtonCataloger;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox textBoxSample;
     }
 }
 
