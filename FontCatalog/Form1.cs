@@ -118,7 +118,8 @@ namespace FontCatalog {
 
             textBoxSample.Text = $"{font.FamilyName.ToUpper()} {font.FaceName.ToUpper()} {trackBarSize.Value}" +
                                  "\r\nThe quick brown fox jumps over the lazy dog." +
-                                 "\r\n1234567890 R$ 123.456,78  áéíóú ÁÉÍÓÚ ãõ ÃÕ âêîôû ÂÊÎÔÛ";
+                                 "\r\n1234567890      R$ 123.456,78" +
+                                 "\r\náéíóú ÁÉÍÓÚ ãõ ÃÕ âêîôû ÂÊÎÔÛ";
             try {
                 textBoxSample.Font = new Font(pfc.Families[0], trackBarSize.Value, font.FStyle());
             }
@@ -162,13 +163,13 @@ namespace FontCatalog {
         private void buttonForeground_Click(object sender, EventArgs e) {
             CD.Color = textBoxSample.ForeColor;
             if (CD.ShowDialog() == DialogResult.OK)
-                textBoxSample.ForeColor = buttonForeground.BackColor = panel3.BackColor = CD.Color;
+                textBoxSample.ForeColor = buttonForeground.BackColor = CD.Color;
         }
 
         private void buttonBackground_Click(object sender, EventArgs e) {
             CD.Color = textBoxSample.BackColor;
             if (CD.ShowDialog() == DialogResult.OK)
-                textBoxSample.BackColor = buttonBackground.BackColor = CD.Color;
+                textBoxSample.BackColor = buttonBackground.BackColor = panel3.BackColor = CD.Color;
         }
 
         private void buttonColorSwap_Click(object sender, EventArgs e) {

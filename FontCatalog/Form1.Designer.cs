@@ -24,9 +24,9 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -224,7 +224,7 @@
             // 
             this.textBoxTarget.Location = new System.Drawing.Point(3, 3);
             this.textBoxTarget.Name = "textBoxTarget";
-            this.textBoxTarget.Size = new System.Drawing.Size(186, 34);
+            this.textBoxTarget.Size = new System.Drawing.Size(168, 34);
             this.textBoxTarget.TabIndex = 1;
             this.textBoxTarget.Text = "Segoe";
             // 
@@ -247,14 +247,13 @@
             this.columnHeader2,
             this.columnHeader3});
             this.lvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup3.Header = "ListViewGroup";
+            listViewGroup3.Name = "listViewGroup1";
             this.lvSearch.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup3});
             this.lvSearch.Location = new System.Drawing.Point(3, 97);
             this.lvSearch.MultiSelect = false;
             this.lvSearch.Name = "lvSearch";
-            this.lvSearch.OwnerDraw = true;
             this.lvSearch.Size = new System.Drawing.Size(356, 559);
             this.lvSearch.SmallImageList = this.imageList1;
             this.lvSearch.TabIndex = 1;
@@ -334,10 +333,10 @@
             this.columnHeader5,
             this.columnHeader6});
             this.lvSelected.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewGroup2.Header = "ListViewGroup";
-            listViewGroup2.Name = "listViewGroup1";
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "listViewGroup1";
             this.lvSelected.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup2});
+            listViewGroup1});
             this.lvSelected.Location = new System.Drawing.Point(3, 3);
             this.lvSelected.MultiSelect = false;
             this.lvSelected.Name = "lvSelected";
