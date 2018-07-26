@@ -24,9 +24,9 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("ListViewGroup", System.Windows.Forms.HorizontalAlignment.Left);
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -88,6 +88,7 @@
             this.toolStripButtonRenameFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCataloger = new System.Windows.Forms.ToolStripButton();
             this.CD = new System.Windows.Forms.ColorDialog();
+            this.toolStripButtonExpand = new System.Windows.Forms.ToolStripButton();
             this.tlpMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -247,10 +248,10 @@
             this.columnHeader2,
             this.columnHeader3});
             this.lvSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewGroup1.Header = "ListViewGroup";
-            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup3.Header = "ListViewGroup";
+            listViewGroup3.Name = "listViewGroup1";
             this.lvSearch.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1});
+            listViewGroup3});
             this.lvSearch.Location = new System.Drawing.Point(3, 97);
             this.lvSearch.MultiSelect = false;
             this.lvSearch.Name = "lvSearch";
@@ -291,10 +292,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tvFonts);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 37);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(368, 677);
+            this.tabPage2.Size = new System.Drawing.Size(368, 665);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Folder View";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -308,7 +309,7 @@
             this.tvFonts.Location = new System.Drawing.Point(3, 3);
             this.tvFonts.Name = "tvFonts";
             this.tvFonts.SelectedImageIndex = 0;
-            this.tvFonts.Size = new System.Drawing.Size(362, 671);
+            this.tvFonts.Size = new System.Drawing.Size(362, 659);
             this.tvFonts.TabIndex = 0;
             this.tvFonts.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.tvFonts_AfterCheck);
             this.tvFonts.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvFonts_AfterSelect);
@@ -333,10 +334,10 @@
             this.columnHeader5,
             this.columnHeader6});
             this.lvSelected.Dock = System.Windows.Forms.DockStyle.Fill;
-            listViewGroup2.Header = "ListViewGroup";
-            listViewGroup2.Name = "listViewGroup1";
+            listViewGroup1.Header = "ListViewGroup";
+            listViewGroup1.Name = "listViewGroup1";
             this.lvSelected.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup2});
+            listViewGroup1});
             this.lvSelected.Location = new System.Drawing.Point(3, 3);
             this.lvSelected.MultiSelect = false;
             this.lvSelected.Name = "lvSelected";
@@ -748,12 +749,13 @@
             this.toolStripButtonSelect,
             this.toolStripButtonUncheck,
             this.toolStripButtonDeselect,
+            this.toolStripButtonCataloger,
             this.toolStripButtonDelete,
             this.toolStripButtonRenameFile,
-            this.toolStripButtonCataloger});
+            this.toolStripButtonExpand});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(119, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(567, 27);
             this.toolStrip1.TabIndex = 0;
             // 
             // toolStripButtonSelect
@@ -829,6 +831,17 @@
             this.toolStripButtonCataloger.Size = new System.Drawing.Size(107, 24);
             this.toolStripButtonCataloger.Text = "Run Cataloger";
             this.toolStripButtonCataloger.Click += new System.EventHandler(this.toolStripButtonCataloger_Click);
+            // 
+            // toolStripButtonExpand
+            // 
+            this.toolStripButtonExpand.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonExpand.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonExpand.Image")));
+            this.toolStripButtonExpand.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonExpand.Name = "toolStripButtonExpand";
+            this.toolStripButtonExpand.Size = new System.Drawing.Size(62, 24);
+            this.toolStripButtonExpand.Text = "Expand";
+            this.toolStripButtonExpand.Visible = false;
+            this.toolStripButtonExpand.Click += new System.EventHandler(this.toolStripButtonExpand_Click);
             // 
             // Form1
             // 
@@ -933,6 +946,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonCataloger;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox textBoxSample;
+        private System.Windows.Forms.ToolStripButton toolStripButtonExpand;
     }
 }
 

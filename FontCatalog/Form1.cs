@@ -281,6 +281,7 @@ namespace FontCatalog {
 
             switch (tab.SelectedIndex) {
                 case 0:
+                    toolStripButtonExpand.Visible = false;
                     toolStripButtonDeselect.Visible = false;
                     toolStripButtonSelect.Visible =
                     toolStripButtonUncheck.Visible =
@@ -288,6 +289,7 @@ namespace FontCatalog {
                         lvSearch.CheckedItems.Cast<ListViewItem>().Any();
                     break;
                 case 1:
+                    toolStripButtonExpand.Visible = true;
                     toolStripButtonDeselect.Visible = false;
                     toolStripButtonSelect.Visible =
                     toolStripButtonUncheck.Visible =
@@ -297,6 +299,7 @@ namespace FontCatalog {
                         GetFontFolder();
                     break;
                 case 2:
+                    toolStripButtonExpand.Visible = false;
                     toolStripButtonSelect.Visible = false;
                     toolStripButtonDeselect.Visible =
                     toolStripButtonUncheck.Visible =
@@ -343,7 +346,7 @@ namespace FontCatalog {
             var all = fonts.Concat(existing);
             ListViewPopulate(lvSelected, all.Cast<FontInfo>());
         }
-        
+
         private void toolStripButtonUncheck_Click(object sender, EventArgs e) {
             switch (tabControl1.SelectedIndex) {
                 case 0:
@@ -467,5 +470,13 @@ namespace FontCatalog {
 
         #endregion
 
+        private void toolStripButtonExpand_Click(object sender, EventArgs e) {
+            if (tvFonts.SelectedNode.IsExpanded) {
+                tvFonts.SelectedNode.Collapse();
+            }
+            else {
+                tvFonts.SelectedNode.ExpandAll();
+            }
+        }
     }
 }
